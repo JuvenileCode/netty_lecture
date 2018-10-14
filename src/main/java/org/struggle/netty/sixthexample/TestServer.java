@@ -1,4 +1,4 @@
-package org.struggle.netty.fifthexample;
+package org.struggle.netty.sixthexample;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -8,14 +8,12 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
-import java.net.InetSocketAddress;
-
 /**
- * @Description WebSocket测试服务器程序
- * @Author Bin.Liu
- * @Date 2018/09/27 15:53
+ * @Auther: Bin.L
+ * @Date: 2018/10/13 21:17
+ * @Description: 用netty发送pb
  */
-public class MyServer {
+public class TestServer {
 
     public static void main(String[] args) throws Exception {
         EventLoopGroup boosGroup = new NioEventLoopGroup();
@@ -25,14 +23,13 @@ public class MyServer {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             serverBootstrap.group(boosGroup, workeGroup).channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.INFO))
-                    .childHandler(new WebSocketChannelInitializer());
+                    .childHandler(new TestInitializer());
 
-            ChannelFuture channelFuture = serverBootstrap.bind(new InetSocketAddress(7729)).sync();
+            ChannelFuture channelFuture = serverBootstrap.bind(7749).sync();
             channelFuture.channel().closeFuture().sync();
         } finally {
             boosGroup.shutdownGracefully();
             workeGroup.shutdownGracefully();
         }
     }
-
 }

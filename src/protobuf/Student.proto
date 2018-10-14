@@ -1,0 +1,17 @@
+syntax = "proto2";
+
+package org.struggle.protobuf;
+
+option optimize_for = SPEED;
+option java_package = "org.struggle.protobuf";
+option java_outer_classname = "DataInfo";
+
+message Student{
+    optional string name =1;
+    optional int32 age=2;
+    optional string address = 3;
+}
+
+
+
+
