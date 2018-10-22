@@ -19,11 +19,12 @@ public class ThriftServer {
         TNonblockingServerSocket socket = new TNonblockingServerSocket(8899);
         THsHaServer.Args arg = new THsHaServer.Args(socket).minWorkerThreads(2).maxWorkerThreads(4);
         PersonService.Processor<PersonServiceImpl> processor = new PersonService.Processor<>(new PersonServiceImpl());
-
+        //数据传输的格式
         arg.protocolFactory(new TCompactProtocol.Factory());
+        //数据传输的方式
         arg.transportFactory(new TFramedTransport.Factory());
         arg.processorFactory(new TProcessorFactory(processor));
-
+        //服务模型
         TServer server = new THsHaServer(arg);
         System.out.println("Thrift Service Started...");
         server.serve();

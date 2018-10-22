@@ -16,6 +16,7 @@ import org.struggle.thrift.generated.PersonService;
 public class ThriftClient {
 
     public static void main(String[] args) {
+        //数据传输格式和传输方式要与Server端保持一致
         TTransport transport = new TFramedTransport(new TSocket("localhost", 8899), 600);
         TProtocol protocol = new TCompactProtocol(transport);
         PersonService.Client client = new PersonService.Client(protocol);
