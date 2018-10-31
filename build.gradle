@@ -44,10 +44,14 @@ buildscript {
     }
 }
 
+
 protobuf {
     protoc {
         artifact = "com.google.protobuf:protoc:3.5.1-1"
     }
+
+    //generateProtoTasks.generatedFilesBaseDir = 'src'
+    
     plugins {
         grpc {
             artifact = 'io.grpc:protoc-gen-grpc-java:1.15.1'
@@ -55,7 +59,9 @@ protobuf {
     }
     generateProtoTasks {
         all()*.plugins {
-            grpc {}
+            grpc {
+                //outputSubDir='/java'
+            }
         }
     }
 }
