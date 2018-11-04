@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.channels.ClosedChannelException;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
@@ -63,9 +64,29 @@ public class NioClient {
                                 e.printStackTrace();
                             }
                         }
+
+                        try {
+                            client.register(selector, SelectionKey.OP_READ);
+                        } catch (ClosedChannelException e) {
+                            e.printStackTrace();
+                        }
+
+                    } else if (selectionKey.isReadable()) {
+                        SocketChannel client = (SocketChannel) selectionKey.channel();
+                        ByteBuffer readBuffer = ByteBuffer.allocate(512);
+                        try {
+                            int count = client.read(readBuffer);
+                            if (count > 0) {
+                                String receivedMessage = new String(readBuffer.array(), 0, count);
+                                System.out.println(receivedMessage);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 });
-
+                ketSet.clear();
             }
 
 
