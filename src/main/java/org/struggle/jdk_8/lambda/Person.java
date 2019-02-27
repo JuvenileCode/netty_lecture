@@ -37,6 +37,30 @@ public class Person {
         this.age = age;
     }
 
+
+    /**
+     * 测试方法引用(静态方法引用)
+     *
+     * @param p1
+     * @param p2
+     * @return
+     */
+    public static int comparePersonByAge(Person p1, Person p2) {
+        return p1.getAge() - p2.getAge();
+    }
+
+    public static int comparePersonByName(Person p1, Person p2) {
+        return p1.getUsername().compareToIgnoreCase(p2.getUsername());
+    }
+
+    public int compareByAge(Person p1) {
+        return this.getAge() - p1.getAge();
+    }
+
+    public int compareByName(Person p1) {
+        return this.getUsername().compareToIgnoreCase(p1.getUsername());
+    }
+
     @Override
     public String toString() {
         return "Person{" +
