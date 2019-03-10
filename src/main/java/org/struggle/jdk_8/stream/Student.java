@@ -14,6 +14,11 @@ public class Student {
     public Student() {
     }
 
+    public Student(String name, int score) {
+        this.name = name;
+        this.score = score;
+    }
+
     public Student(String name, int score, int age) {
         this.name = name;
         this.score = score;
